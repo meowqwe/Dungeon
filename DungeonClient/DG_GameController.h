@@ -18,23 +18,23 @@
 class DG_GameController
 {
 public:
-	enum /*class*/ GameState {
+	enum GameState {
 		GAME_INIT = 0, GAME_MENU, GAME_STARTING, GAME_RUNNING, GAME_EXIT
 	}state;
 	void Init();			// 初始化
 	void Menu();			// 菜单界面
 	void SetupForRun();		// 初始化游戏资源
-	void Clear();			// 清除上一帧的内容
-	void GetInput();		// 获取玩家输入
-	void Do_Logic();		// 处理逻辑
 	void Render_Frame();	// 渲染并显示当前帧的内容
 	void Wait();			// 控制帧率
 	void QuitGame();		// 释放游戏资源并退出
+	void LoadResource();
 private:
-	std::map<std::string, std::map<std::string, DG_Sprite>> Sprite;
-	std::map<std::string, std::map<std::string, SDL_Surface*>> GameResource;
+	std::map<std::string, DG_Sprite> Sprite;
+	std::map<std::string, SDL_Surface*> GameResource;
 	Uint32 start = 0;
 	Uint32 end = 0;
+	int iWidth = 1000;
+	int iHeight = 740;
 };
 
 #endif // !_GAME_CONTROLLER_H_
