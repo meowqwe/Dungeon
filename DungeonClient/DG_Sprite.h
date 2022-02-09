@@ -18,14 +18,14 @@ public:
 	DG_Sprite(std::string file_path, bool lean = false);
 	DG_Sprite(void* mem, int size, bool lean = false);
 	~DG_Sprite();
-	DG_Sprite(const DG_Sprite&) = delete;
+	DG_Sprite(const DG_Sprite&)  = delete;
 	DG_Sprite& operator=(const DG_Sprite&) = delete;
 	operator bool() { return __m_pSurface || __m_pTexture; };
 
 	void Slim(SlimType type);
 	void SetColorKey(const SDL_Color& color, bool enable = true);
 	void SetAlpha(Uint8 value);
-	void Render(const SDL_Rect* src, const SDL_Rect* dst);
+	virtual void Render(const SDL_Rect* src, const SDL_Rect* dst);
 	void RenderEx(const SDL_Rect* src, 
 				const SDL_Rect* dst, 
 				double angle, 
@@ -34,7 +34,7 @@ public:
 
 	int m_nWidth = 0, m_nHeight = 0;
 
-private:
+protected:
 	SDL_Surface* __m_pSurface = nullptr;
 	SDL_Texture* __m_pTexture = nullptr;
 };

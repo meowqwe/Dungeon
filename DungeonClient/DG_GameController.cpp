@@ -1,5 +1,7 @@
 #include "DG_GameController.h"
 #include "DG_Assert.h"
+#include "DG_Control.h"
+
 
 void DG_GameController::Init()
 {
@@ -75,10 +77,25 @@ void DG_GameController::LoadResource()
 
 void DG_GameController::Menu()
 {
-	SDL_Rect back = { 0, 0, iWidth, iHeight};
 	DG_Sprite background("./assets/background/menu.png");
-	background.Render(&back, &back);
-	SDL_RenderPresent(g_pRenderer);
+	SDL_Rect back = { 0, 0, iWidth, iHeight};
+	std::vector<DG_Button*> buttons;
+	DG_Button btn_LoadGame("./assets/button/btn_LoadGame_idle.png", "./assets/button/btn_LoadGame_hover.png");
+	buttons.emplace_back(&btn_LoadGame);
+	DG_Button btn_NewGame("./assets/button/btn_NewGame_idle.png", "./assets/button/btn_NewGame_hover.png");
+	buttons.emplace_back(&btn_NewGame);
+	DG_Button btn_Setting("./assets/button/btn_Setting_idle.png", "./assets/button/btn_Setting_hover.png");
+	buttons.emplace_back(&btn_Setting);
+	DG_Button btn_Quit("./assets/button/btn_Quit_idle.png", "./assets/button/btn_Quit_hover.png");
+	buttons.emplace_back(&btn_Quit);
+
+	std::vector<SDL_Rect> rects;
+	for (int i = 0; i < buttons.size(); i++)
+	{
+		SDL_Rect rect = {iWidth/2 - buttons[i]->m_nWidth/2, iHeight/3 * 2 + i * 60 , buttons[i]->m_nWidth, buttons[i]->m_nHeight};
+		rects.emplace_back(rect);
+	}
+
 	SDL_Event event;
 	while (g_Game.state == GAME_MENU)
 	{
@@ -95,10 +112,22 @@ void DG_GameController::Menu()
 			case SDL_MOUSEBUTTONUP:
 				break;
 			case SDL_MOUSEMOTION:
+				for (int i = 0; i < buttons.size(); i++)
+				{
+					buttons[i]->CheckHighlight(rects[i], event);
+				}
 				break;
 			default:
 				break;
 			}
+			background.Render(&back, &back);
+			for (int i = 0; i < buttons.size(); i++)
+			{
+				buttons[i]->Render(nullptr, &rects[i]);
+			}
+			SDL_RenderPresent(g_pRenderer);
+			end = SDL_GetPerformanceCounter();
+			Wait();
 		}
 		end = SDL_GetPerformanceCounter();
 		Wait();
