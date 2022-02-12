@@ -14,7 +14,9 @@ bool DG_Control::IsInControl(SDL_Rect rect, int x, int y)
 	return false;
 }
 
-DG_Button::DG_Button(std::string file_path1, std::string file_path2, bool lean) :DG_Control(file_path1, lean) {
+DG_Button::DG_Button(std::string file_path1, 
+	std::string file_path2, 
+	bool lean) :DG_Control(file_path1, lean) {
 	if (__m_pSurfaceH = IMG_Load(file_path2.c_str()))
 	{
 		m_nWidth = __m_pSurfaceH->w, m_nHeight = __m_pSurfaceH->h;
@@ -51,13 +53,13 @@ DG_Button::~DG_Button()
 
 bool DG_Button::SwitchHighlight()
 {
-	if (flag) { // ÅÐ¶Ï²¢ÐÞ¸Ä¸ßÁÁ×´Ì¬
-		flag = false;
+	if (highlight) { // ÅÐ¶Ï²¢ÐÞ¸Ä¸ßÁÁ×´Ì¬
+		highlight = false;
 		return false;
 	}
 	else
 	{
-		flag = true;
+		highlight = true;
 		return true;
 	}
 }
@@ -73,7 +75,7 @@ void DG_Button::Render(const SDL_Rect* src, const SDL_Rect* dst)
 	if (!__m_pTextureH)
 		__m_pTextureH = SDL_CreateTextureFromSurface(g_pRenderer, __m_pSurfaceH);
 
-	if (flag) {
+	if (highlight) {
 		SDL_RenderCopy(g_pRenderer, __m_pTextureH, src, dst);
 	}
 	else {
@@ -85,15 +87,15 @@ void DG_Button::Render(const SDL_Rect* src, const SDL_Rect* dst)
 
 int DG_Button::CheckMouseType(SDL_Rect rect, SDL_Event e)
 {
-	SDL_Cursor* hand = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
-	SDL_Cursor* arr = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 	if (e.type == SDL_MOUSEMOTION) {
 		if (IsInControl(rect, e.motion.x, e.motion.y)) {
-			SDL_SetCursor(hand);
+			if(!cursor)SetCursor(SDL_SYSTEM_CURSOR_HAND);
+			cursor = true;
 		}
 		else
 		{
-			SDL_SetCursor(arr);
+			if(cursor)SetCursor(SDL_SYSTEM_CURSOR_ARROW);
+			cursor = false;
 		}
 	}
 	return 0;
@@ -103,11 +105,11 @@ int DG_Button::CheckHighlight(SDL_Rect rect, SDL_Event e)
 {
 	if (e.type == SDL_MOUSEMOTION) {
 		if (IsInControl(rect, e.motion.x, e.motion.y)) {
-			if (!flag) SwitchHighlight();
+			if (!highlight) SwitchHighlight();
 		}
 		else
 		{
-			if (flag) SwitchHighlight();
+			if (highlight) SwitchHighlight();
 		}
 	}
 	return -1;

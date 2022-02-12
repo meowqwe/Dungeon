@@ -24,7 +24,7 @@ public:
 	void Init();			// 初始化
 	void Menu();			// 菜单界面
 	void SetupForRun();		// 初始化游戏资源
-	void Render_Frame();	// 渲染并显示当前帧的内容
+	void Run();				// 游戏运行
 	void Wait();			// 控制帧率
 	void QuitGame();		// 释放游戏资源并退出
 	void LoadResource();

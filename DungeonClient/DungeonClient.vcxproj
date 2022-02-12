@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DG_Character.cpp" />
     <ClCompile Include="DG_Control.cpp" />
     <ClCompile Include="DG_Logger.cpp" />
     <ClCompile Include="DG_Sprite.cpp" />
@@ -28,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DG_Assert.h" />
+    <ClInclude Include="DG_Character.h" />
     <ClInclude Include="DG_Control.h" />
     <ClInclude Include="DG_Logger.h" />
     <ClInclude Include="DG_Sprite.h" />

@@ -22,3 +22,9 @@ cJSON* LoadJSON(std::string str_path)
 	ss_json_content.clear();
 	return pjson;
 }
+
+void SetCursor(SDL_SystemCursor type)
+{
+	SDL_Cursor* cursor = SDL_CreateSystemCursor(type);
+	SDL_SetCursor(cursor);
+}

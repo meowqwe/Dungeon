@@ -22,7 +22,8 @@ public:
 	bool IfClicked(SDL_Rect rect, SDL_Event e);
 
 private:
-	bool flag = false;	// true为高亮状态
+	bool highlight = false;	// true为高亮状态
+	bool cursor = false;	// true为手型
 	SDL_Surface* __m_pSurfaceH = nullptr;
 	SDL_Texture* __m_pTextureH = nullptr;
 };

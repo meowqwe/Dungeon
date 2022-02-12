@@ -34,6 +34,7 @@ int main(int argc, char** argv)
 		case DG_GameController::GAME_STARTING:
 			break;
 		case DG_GameController::GAME_RUNNING:
+			g_Game.Run();
 			break;
 		case DG_GameController::GAME_EXIT:
 			g_Game.QuitGame();
