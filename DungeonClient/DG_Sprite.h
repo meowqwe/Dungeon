@@ -5,6 +5,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <cmath>
 
 
 #include "DG_Utils.h"

@@ -24,6 +24,8 @@ private:
 	std::vector<SDL_Texture*> idles;
 	double xspeed = 0;
 	double yspeed = 0;
+	double speed = 0;
+	double angle = 0;
 	bool animation = true;	// true 为动画播放中
 	int keydown = 0;		// 按键正按下的数量
 	int count = 0;			// 动画播放计数

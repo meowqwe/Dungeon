@@ -155,8 +155,10 @@ void DG_Character::UpdatePos(SDL_Rect* rect)
 		xspeed += addspeed;
 		Turn(0);
 	}
-	rect->x = rect->x + xspeed;
-	rect->y = rect->y + yspeed;
+	speed = std::max(abs(xspeed), abs(yspeed));
+	angle = atan2(yspeed, xspeed);
+	rect->x = rect->x + f_toint(speed * SDL_cos(angle));
+	rect->y = rect->y + f_toint(speed * SDL_sin(angle));
 }
 
 void DG_Character::Turn(int dir)
